@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+<center>
+<h1>{{=image.title}}</h1>
+<img width="100%"
+     src="{{=URL('download', args=image.file)}}" />
+</center>
+
+<h2>Wyposażenie dla {{=car_title.title}}:</h2>
+<ul>
+  {{for eq in equipment:}}
+    <li>{{=eq.name}}</li>
+  {{pass}}
+</ul>
+
+{{if len(comments):}}
+  <h2>Komentarze</h2><br /><p>
+  {{for post in comments:}}
+<p><b>{{=post.author}}</b> skomentował <i>{{=post.body}}</i></p>
+  {{pass}}</p>
+{{else:}}
+  <h2>Nie ma jeszcze żadnego komentarza</h2>
+{{pass}}
+<h2>Skomentuj</h2>
+{{=form}}
