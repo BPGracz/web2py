@@ -281,6 +281,7 @@
 'TSV (Spreadsheets, hidden cols)': 'TSV (Spreadsheets, hidden cols)',
 'Twitter': 'Twitter',
 'Two-step Login Authentication Code': 'Two-step Login Authentication Code',
+'Tytuł': 'Tytuł',
 'unable to parse csv file': 'nie można sparsować pliku csv',
 'Unable to send email': 'Unable to send email',
 'Update:': 'Uaktualnij:',

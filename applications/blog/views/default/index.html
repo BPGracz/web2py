@@ -1,7 +1,11 @@
 {{extend 'layout.html'}}
 <h1>Najnowsze posty</h1>
-<ul>
-{{for image in images:}}
-{{=LI(A(image.title, _href=URL("show", args=image.id)))}}
-{{pass}}
-</ul>
+<div class="image-grid">
+    {{for image in images:}}
+    <div class="image-thumbnail">
+        <a href="{{=URL('show', args=image.id)}}">
+            <img src="{{=URL('default', 'download', args=image.file)}}" alt="{{=image.title}}">
+        </a>
+    </div>
+    {{pass}}
+</div>

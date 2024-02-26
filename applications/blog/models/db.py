@@ -98,7 +98,7 @@ db.image.title.requires = IS_NOT_IN_DB(db, db.image.title)
 # Tworzenie modelu post - komentarze
 db.define_table('post',
    Field('image_id', 'reference image'),
-   Field('author', label='Autor:'),
+   Field('author', default=auth.user.username, label='Autor:'),
    Field('body', 'text',  label='Komentarz')
 )
 

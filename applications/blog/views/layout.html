@@ -31,6 +31,26 @@
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
+    <style>
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-gap: 10px;
+      }
+
+      .image-thumbnail {
+        width: 100%;
+        padding-bottom: 100%; /* Wysokość równa szerokości, aby utrzymać proporcje obrazu */
+        position: relative;
+      }
+
+      .image-thumbnail img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Dopasowanie obrazu do kontenera */
+      }
+    </style>
   </head>
   <body>
     <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
