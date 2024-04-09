@@ -85,18 +85,40 @@ auth = Auth(db)
 auth.define_tables(username=True)
 
 # -------------------------------------------------------------------------
+
 # Tworzenie modelu image - posty
 db.define_table('image',
+   Field('date', 'date', default=request.now, writable=False, readable=False),
    Field('title', label='Tytuł', unique=True),
+   Field('body', 'text', label='Treść'),
    Field('file', 'upload', label='Plik'),
-   format = '%(title)s')
+   format='%((title)s)'
+)
 
-# Ustalanie wymagań dla nowych pól dla iamge
+# Tworzenie modelu kategorii
+db.define_table('category',
+   Field('name', unique=True),
+   format='%((name)s)'
+)
+
+
+# Tworzenie tabeli łączącej image i category
+db.define_table('image_category',
+   Field('image_id', 'reference image'),
+   Field('category_id', 'reference category')
+)
+
+# Ustalanie wymagań dla nowych pól dla image
 db.image.title.requires = IS_NOT_IN_DB(db, db.image.title)
+db.image.file.requires = IS_NOT_EMPTY()
+
+# Ustalanie wymagań dla nowych pól dla category
+db.category.name.requires = IS_NOT_IN_DB(db, db.category.name)
 
 # -------------------------------------------------------------------------
 # Tworzenie modelu post - komentarze
 db.define_table('post',
+   Field('date', 'datetime', default=request.now, writable=False, readable=False),
    Field('image_id', 'reference image'),
    Field('author', default=auth.user.username if auth.user else None, label='Autor:'),
    Field('body', 'text',  label='Komentarz')
@@ -127,3 +149,6 @@ db.equipment_model.equipment_id.requires = IS_IN_DB(db, db.equipment.id, '%(name
 db.equipment_model.image_id.requires = IS_IN_DB(db, db.image.id, '%(title)s')
 
 # -------------------------------------------------------------------------
+# after defining tables, uncomment below to enable auditing
+# -------------------------------------------------------------------------
+auth.enable_record_versioning(db)
